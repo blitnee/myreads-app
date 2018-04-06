@@ -19,6 +19,9 @@ class BooksApp extends React.Component {
           <Route exact path='/' render={() => (
             <ListBooks/>
           )}/>
+          <Route path='/create' render={() => (
+            <SearchBooks/>
+          )}/>
       </div>
     )
   }
