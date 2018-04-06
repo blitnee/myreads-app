@@ -17,12 +17,13 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
       <div className="app">
           <Route exact path='/' render={() => (
             <ListBooks/>
           )}/>
-          <Route path='/create' render={() => (
+          <Route path='/search' render={({ history }) => (
             <SearchBooks/>
           )}/>
       </div>
