@@ -26,6 +26,11 @@ class App extends React.Component {
   }
 
   addBook(book) {
+    BooksAPI.create(book).then(book => {
+      this.setState(state => ({
+        books: state.books.concat([ book ])
+      }))
+    })
   }
 
   render() {
