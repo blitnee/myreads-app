@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-//import sortBy from 'sort-by'
+import BookShelf from './BookShelf'
 
 class ListBooks extends Component {
 
   static propTypes = {
-    myBooks: PropTypes.array.isRequired
+    onChangeShelf: PropTypes.func.isRequired
   }
 
   render() {
-    const { myBooks } = this.props
+    const { onChangeShelf } = this.props
 
     return (
 
@@ -18,38 +18,13 @@ class ListBooks extends Component {
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
+
         <div className="list-books-content">
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">My Books</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                { myBooks.map(( book, index ) => (
-                  <li key={book.id + index}>
-                    <div className="book">
-                      <div className="book-top">
-                        <div className="book-cover" style={{
-                          width: 128, height: 193,
-                          backgroundImage: `url(${book.imageLinks.thumbnail})`
-                        }}/>
-                        <div className="book-shelf-changer">
-                            <select value={book.shelf}>
-                            <option value="none" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="book-title">{book.title}</div>
-                      <div className="book-authors">{book.authors}</div>
-                    </div>
-                  </li>
-                ))}
-                </ol>
-              </div>
-            </div>
+          <BookShelf id='currentlyReading' title='Currently Reading' />
+          <BookShelf id='wantToRead' title='Want To Read' />
+          <BookShelf id='read' title='Read' />
         </div>
+
         <div className="open-search">
           <Link to='/search'>Add Books</Link>
         </div>
