@@ -5,7 +5,8 @@ import * as BooksAPI from './BooksAPI'
 class Book extends Component {
 
   static PropTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
   }
 
   state = {
@@ -17,6 +18,16 @@ class Book extends Component {
       this.setState({ myBooks })
     })
   }
+
+	handleSubmit = (book , e) => {
+		e.preventDefault();
+
+		if(this.props.onChangeShelf){
+		this.props.onChangeShelf(book , e.target.value);
+		}
+	}
+
+
 
   render() {
   	const { myBooks } = this.state
@@ -35,7 +46,7 @@ class Book extends Component {
 				            backgroundImage: `url(${book.imageLinks.thumbnail})`
 				          }}/>
 				          <div className="book-shelf-changer">
-				            <select value={book.shelf} onChange=''>
+				            <select value={book.shelf} onChange={e => this.handleSubmit(book, e)}>
 				              <option value="none" disabled>Move to...</option>
 				              <option value="currentlyReading">Currently Reading</option>
 				              <option value="wantToRead">Want to Read</option>
