@@ -5,7 +5,7 @@ import * as BooksAPI from './BooksAPI'
 class Book extends Component {
 
   static PropTypes = {
-    myBooks: []
+    id: PropTypes.string.isRequired
   }
 
   state = {
@@ -20,12 +20,14 @@ class Book extends Component {
 
   render() {
   	const { myBooks } = this.state
+  	const { id } = this.props
+  	let list = myBooks.filter(book => book.shelf === id)
 
     return(
-    	// Map by bookshelf?
-				<ol className="books-grid">
-          { myBooks.map(( book, index ) => (
-				    <li key={book.id + index}>
+
+			<ol className="books-grid">
+          		{ list.map(( book) => (
+				    <li key={book.id}>
 				      <div className="book">
 				        <div className="book-top">
 				          <div className="book-cover" style={{
@@ -47,10 +49,7 @@ class Book extends Component {
 				      </div>
 				    </li>
 			    ))}
-        </ol>
-
-
-
+        	</ol>
     )
 	}
 
