@@ -13,9 +13,8 @@ class BookMenu extends Component {
  */
   handleSubmit = (book , e) => {
     e.preventDefault();
-
-    if(this.props.onChangeShelf){
       this.props.onChangeShelf(book , e.target.value);
+      this.props.onNewValue(book , e.target.value);
     }
   }
 
@@ -24,6 +23,7 @@ class BookMenu extends Component {
     const { book } = this.props
 
   	return(
+
       <div className="book-shelf-changer">
         <select value={ book.shelf } onChange={e => this.handleSubmit(book, e)}>
           <option value="none" disabled>Move to...</option>
@@ -33,6 +33,7 @@ class BookMenu extends Component {
           <option value="noneSelect">None</option>
         </select>
       </div>
+
 		)
 	}
 }

@@ -6,36 +6,47 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class App extends Component {
+
   state = {
     myBooks: []
   }
 
-  componentDidMount() {
+  updateBooks() {
     BooksAPI.getAll().then((myBooks) => {
-      this.setState({ myBooks })
+      this.setState({myBooks})
     })
   }
 
-  render() {
+  componentDidMount() {
+    this.updateBooks()
+  }
 
+  changeShelf(book, shelf) {
+    BooksAPI.update(book, shelf)
+    this.updateBooks()
+  }
+
+  render() {
     return (
       <div className="app">
           <Route exact path='/' render={() => (
             <ListBooks
-              // myBooks={this.state.myBooks}
-              />
+              myBooks={ this.state.myBooks }
+              onChangeShelf={ (book, shelf) => {
+                this.changeShelf(book, shelf)
+              }}/>
           )}/>
-          <Route path='/search' render={({ history }) => (
+          <Route path='/search' render={() => (
             <SearchBooks
-              // onAddBook={(book) => {
-              //   this.addBook(book)
-              //   history.push('/')
-              // }}
-            />
+              myBooks={ this.state.myBooks }
+              onChangeShelf={ (book, shelf) => {
+                this.changeShelf(book, shelf)
+              }}/>
           )}/>
       </div>
     )
   }
+
 }
 
 export default App

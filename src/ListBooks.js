@@ -6,41 +6,52 @@ import PropTypes from 'prop-types'
 class ListBooks extends Component {
 
   static PropTypes = {
-    myBooks: PropTypes.array.isRequired
+    myBooks: PropTypes.array.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
   }
 
-    getBooks = (id) => {
-      return this.props.myBooks.filter(book => book.shelf === id)
-    }
+  shelfChange = ( book, shelf ) => {
+    this.props.onChangeShelf(book, shelf)
+  }
+
+  getBooks = (id) => {
+    return this.props.myBooks.filter(book => book.shelf === id)
+  }
 
   render() {
 
-    const bookshelves = [{
-        id: 'currentlyReading',
-        title: 'Currently Reading',
-        books: this.getBooks('currentlyReading')
-      },{
-        id: 'wantToRead',
-        title: 'Want To Read',
-        books: this.getBooks('wantToRead')
-      },{
-        id: 'read',
-        title: 'Read',
-        books: this.getBooks('read')
-      }]
+  /*
+   * Turn this back into a component... ?
+   */
+    const bookShelves = [{
+      id: 'currentlyReading',
+      title: 'Currently Reading',
+      books: this.getBooks('currentlyReading')
+    },{
+      id: 'wantToRead',
+      title: 'Want To Read',
+      books: this.getBooks('wantToRead')
+    },{
+      id: 'read',
+      title: 'Read',
+      books: this.getBooks('read')
+    }]
 
     return (
-
       <div className="list-books">
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          {bookshelves.map( shelf =>
+          {bookShelves.map( shelf =>
             <div key={ shelf.id } className="bookshelf">
               <h2 className="bookshelf-title">{ shelf.title }</h2>
                 <div className="bookshelf-books">
-                  <Books books={ shelf.books } />
+                  <Books
+                    books={ shelf.books }
+                    pushShelfChange={ (book, shelf) => {
+                      this.shelfChange(book, shelf)
+                    }}/>
                 </div>
             </div>
           )}
@@ -51,6 +62,7 @@ class ListBooks extends Component {
       </div>
     )
   }
+
 }
 
 export default ListBooks
