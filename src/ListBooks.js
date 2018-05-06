@@ -15,7 +15,7 @@ class ListBooks extends Component {
   }
 
   getBooks = (id) => {
-    return this.props.myBooks.filter(book => book.shelf === id)
+    return this.props.myBooks.filter((book) => book.shelf === id)
   }
 
   render() {
