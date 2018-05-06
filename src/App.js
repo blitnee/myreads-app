@@ -8,7 +8,7 @@ import './App.css'
 class App extends Component {
 
   state = {
-    myBooks: []
+    myBooks: [],
   }
 
   updateBooks() {
@@ -32,14 +32,15 @@ class App extends Component {
           <Route exact path='/' render={() => (
             <ListBooks
               myBooks={ this.state.myBooks }
-              onChangeShelf={ (book, shelf) => {
+              onChangeShelf={(book, shelf) => {
                 this.changeShelf(book, shelf)
-              }}/>
+              }}
+              />
           )}/>
           <Route path='/search' render={() => (
             <SearchBooks
               myBooks={ this.state.myBooks }
-              onChangeShelf={ (book, shelf) => {
+              onChangeShelf={(book, shelf) => {
                 this.changeShelf(book, shelf)
               }}/>
           )}/>

@@ -18,7 +18,7 @@ class Books extends Component {
 
 	return(
 			<ol className="books-grid">
-				{ books.map(( book ) => (
+				{ books.map((book) => (
 					<li key={book.id}>
 						<div className="book">
 							<div className="book-top">
@@ -28,7 +28,7 @@ class Books extends Component {
 									}}/>
 								<BookMenu
 									book={ book }
-									onNewValue={ (book, shelf) => {
+									onNewValue={(book, shelf) => {
 										this.newValue(book, shelf)
 									}}/>
 							</div>

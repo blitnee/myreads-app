@@ -19,7 +19,6 @@ class ListBooks extends Component {
   }
 
   render() {
-
   /*
    * Turn this back into a component... ?
    */
@@ -43,15 +42,16 @@ class ListBooks extends Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          {bookShelves.map( shelf =>
+          {bookShelves.map((shelf) =>
             <div key={ shelf.id } className="bookshelf">
               <h2 className="bookshelf-title">{ shelf.title }</h2>
                 <div className="bookshelf-books">
                   <Books
                     books={ shelf.books }
-                    pushShelfChange={ (book, shelf) => {
+                    pushShelfChange={(book, shelf) => {
                       this.shelfChange(book, shelf)
-                    }}/>
+                    }}
+                    />
                 </div>
             </div>
           )}
