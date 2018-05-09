@@ -7,46 +7,46 @@ import './App.css'
 
 class App extends Component {
 
-  state = {
-    myBooks: [],
-  }
+	state = {
+		myBooks: [],
+	}
 
-  updateBooks() {
-    BooksAPI.getAll().then((myBooks) => {
-      this.setState({myBooks})
-    })
-  }
+	updateBooks() {
+		BooksAPI.getAll().then((myBooks) => {
+			this.setState({myBooks})
+		})
+	}
 
-  componentWillMount() {
-    this.updateBooks()
-  }
+	componentWillMount() {
+		this.updateBooks()
+	}
 
-  changeShelf(book, shelf) {
-    BooksAPI.update(book, shelf)
-    this.updateBooks()
-  }
+	changeShelf(book, shelf) {
+		BooksAPI.update(book, shelf)
+		this.updateBooks()
+	}
 
-  render() {
-    return (
-      <div className="app">
-          <Route exact path='/' render={() => (
-            <ListBooks
-              myBooks={ this.state.myBooks }
-              onChangeShelf={(book, shelf) => {
-                this.changeShelf(book, shelf)
-              }}
-              />
-          )}/>
-          <Route path='/search' render={() => (
-            <SearchBooks
-              myBooks={ this.state.myBooks }
-              onChangeShelf={(book, shelf) => {
-                this.changeShelf(book, shelf)
-              }}/>
-          )}/>
-      </div>
-    )
-  }
+	render() {
+		return (
+			<div className="app">
+					<Route exact path='/' render={() => (
+						<ListBooks
+							myBooks={ this.state.myBooks }
+							onChangeShelf={(book, shelf) => {
+								this.changeShelf(book, shelf)
+							}}
+							/>
+					)}/>
+					<Route path='/search' render={() => (
+						<SearchBooks
+							myBooks={ this.state.myBooks }
+							onChangeShelf={(book, shelf) => {
+								this.changeShelf(book, shelf)
+							}}/>
+					)}/>
+			</div>
+		)
+	}
 
 }
 
