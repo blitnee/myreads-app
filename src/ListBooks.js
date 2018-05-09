@@ -10,31 +10,31 @@ class ListBooks extends Component {
     onChangeShelf: PropTypes.func.isRequired
   }
 
-  shelfChange = ( book, shelf ) => {
-    this.props.onChangeShelf(book, shelf)
+  state = {
+    bookShelves: [
+      {
+        id: 'currentlyReading',
+        title: 'Currently Reading',
+      },{
+        id: 'wantToRead',
+        title: 'Want To Read',
+      },{
+        id: 'read',
+        title: 'Read',
+      },
+    ]
   }
 
   getBooks = (id) => {
     return this.props.myBooks.filter((book) => book.shelf === id)
   }
 
+  shelfChange = ( book, shelf ) => {
+    this.props.onChangeShelf(book, shelf)
+  }
+
   render() {
-  /*
-   * Turn this back into a component... ?
-   */
-    const bookShelves = [{
-      id: 'currentlyReading',
-      title: 'Currently Reading',
-      books: this.getBooks('currentlyReading')
-    },{
-      id: 'wantToRead',
-      title: 'Want To Read',
-      books: this.getBooks('wantToRead')
-    },{
-      id: 'read',
-      title: 'Read',
-      books: this.getBooks('read')
-    }]
+        const { bookShelves } = this.state
 
     return (
       <div className="list-books">
@@ -47,7 +47,8 @@ class ListBooks extends Component {
               <h2 className="bookshelf-title">{ shelf.title }</h2>
                 <div className="bookshelf-books">
                   <Books
-                    books={ shelf.books }
+                    // books={ shelf.books }
+                    books={this.getBooks(shelf.id)}
                     pushShelfChange={(book, shelf) => {
                       this.shelfChange(book, shelf)
                     }}
