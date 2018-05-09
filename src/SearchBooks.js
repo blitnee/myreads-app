@@ -1,80 +1,89 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+// import escapeRegExp from 'escape-string-regexp'
+import PropTypes from 'prop-types'
+import Books from './Books'
 
 class SearchBooks extends Component {
+  static propTypes = {
+    // myBooks: PropTypes.array.isRequired,
+    // onChangeShelf: PropTypes.func.isRequired
+  }
 
-	state = {
-		query: '',
-		reBooks: []
-	}
+  shelfChange = ( book, shelf ) => {
+    this.props.onChangeShelf(book, shelf)
+  }
 
-	updateQuery = (query) => {
-		this.setState({ query: query.trim() })
-		 console.log('query: ')
-		 console.log(query)
-	}
+  state = {
+    results: [],
+    query: '',
+  }
+
+  getShelf = (array) => {
+    // Error with updating on gen of results list, initiated on second character
+    console.log('getShelf ran: ')
+    console.log(this.state.results)
+
+    array.map((result) => {
+      this.props.myBooks.map((book) => {
+        if (book.id === result.id) {
+          result.shelf = book.shelf
+        } else {
+          result.shelf = 'noneSelect'
+        }
+      })
+    })
+  }
+
+  updateQuery = (query) => {
+    this.setState({ query: query.trim() })
+    this.showResults(query)
+    console.log('query: ')
+    console.log(query)
+  }
+
+  showResults = (query) => {
+    // const input = new RegExp(escapeRegExp(query), 'i')
+    if (query) {
+      BooksAPI.search(query).then((results) => {
+        this.setState({ results })
+        this.getShelf(this.state.results) // REMOVE DUPLICATED CODE
+      })
+    } else if (query == '') {
+        this.setState({results: []})
+        this.getShelf(this.state.results) // REMOVE DUPLICATED CODE
+    }
+  }
 
   render() {
-  	const { reBooks } = this.state
-  	const { query } = this.state
 
-  	if (query) {
-  		BooksAPI.search(query).then((reBooks) => {
-      	this.setState({ reBooks })
-    	})
-  	} else {
-  		console.log('clear books')
+    const { query, results } = this.state
 
-  	}
-
-  	return(
-
-		  <div className="search-books">
-		    <div className="search-books-bar">
-		      <Link className="close-search" to='/'>Close</Link>
-		      <div className="search-books-input-wrapper">
-		        <input
-        			className='search-books'
-        			type="text"
-        			placeholder="Search by title or author"
-        			value={query}
-        			onChange={(event) => this.updateQuery(event.target.value)}
-		        />
-		      </div>
-		    </div>
-		    <div className="search-books-results">
-		      <ol className="books-grid">
-
-            { reBooks.map(( book ) => (
-              <li key={book.id}>
-                <div className="book">
-                  <div className="book-top">
-                    <div className="book-cover" style={{
-                      width: 128, height: 193,
-                      backgroundImage: `url(${book.imageLinks.thumbnail})`
-                    }}/>
-                    <div className="book-shelf-changer">
-                        <select value={book.shelf}>
-                        <option value="none" disabled>Move to...</option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="book-title">{book.title}</div>
-                  <div className="book-authors">{book.authors}</div>
-                </div>
-              </li>
-            ))}
-
-          </ol>
-		    </div>
-		  </div>
-		)
-	}
+    return(
+      <div className="search-books">
+        <div className="search-books-bar">
+          <Link className="close-search" to='/'>Close</Link>
+          <div className="search-books-input-wrapper">
+            <input
+              className='search-books'
+              type="text"
+              placeholder="Search by title or author"
+              value={query}
+              onChange={(event) => this.updateQuery(event.target.value)}
+            />
+          </div>
+        </div>
+        <div className="search-books-results">
+          <Books
+            books={ results }
+            pushShelfChange={(book, shelf) => {
+              this.shelfChange(book, shelf)
+            }}/>
+        </div>
+      </div>
+    )
+  }
 
 }
 

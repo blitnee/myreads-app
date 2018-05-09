@@ -11,14 +11,11 @@ class BookMenu extends Component {
   handleSubmit = (book , e) => {
     e.preventDefault();
     if(this.props.onNewValue){
-      this.props.onNewValue(book , e.target.value);
+      this.props.onNewValue(book , e.target.value)
     }
   }
 
-
-
   render() {
-
     const { book } = this.props
     /*
      * Should compare books in myBooks for nonSelect status or other value,
@@ -28,7 +25,6 @@ class BookMenu extends Component {
     // if (!book.shelf) {
     //   book.shelf = 'noneSelect'
     // }
-
   	return(
       <div className="book-shelf-changer">
         <select value={ book.shelf } onChange={ (e) => this.handleSubmit(book, e)}>

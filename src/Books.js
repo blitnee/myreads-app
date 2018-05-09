@@ -6,23 +6,27 @@ class Books extends Component {
 
   static PropTypes = {
     books: PropTypes.object.isRequired,
-    pushShelfChange: PropTypes.func.isRequired
+    onChangeShelf: PropTypes.func.isRequired
+  }
+
+  state = {
+  	shelfBooks: []
   }
 
   newValue = ( book, shelf ) => {
-  	this.props.pushShelfChange(book, shelf)
+  	this.props.onChangeShelf(book, shelf)
   }
 
 	render() {
 		const { books } = this.props
-
-	return(
+		return(
 			<ol className="books-grid">
 				{ books.map((book) => (
 					<li key={book.id}>
 						<div className="book">
 							<div className="book-top">
 								<div className="book-cover" style={{
+									// @todo: Remove styles
 							    width: 128, height: 193,
 							    backgroundImage: `url(${book.imageLinks.thumbnail})`
 									}}/>
