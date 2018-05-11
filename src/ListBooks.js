@@ -11,6 +11,7 @@ class ListBooks extends Component {
 	}
 
 	state = {
+		// Turn Back into Component
 		bookShelves: [
 			{
 				id: 'currentlyReading',

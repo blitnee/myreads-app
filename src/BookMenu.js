@@ -8,6 +8,10 @@ class BookMenu extends Component {
 		book: PropTypes.object.isRequired
 	}
 
+// state should equal the value of book.shelf
+// when handle submit occurs, it should update the API
+// when the API updates it should send the new value to state
+
 	handleSubmit = (book , e) => {
 		e.preventDefault();
 		if(this.props.onNewValue){
@@ -28,11 +32,11 @@ class BookMenu extends Component {
 		return(
 			<div className="book-shelf-changer">
 				<select value={ book.shelf } onChange={ (e) => this.handleSubmit(book, e)}>
-					<option value="none" disabled>Move to...</option>
+					<option value="select" disabled>Move to...</option>
 					<option value="currentlyReading">Currently Reading</option>
 					<option value="wantToRead">Want to Read</option>
 					<option value="read">Read</option>
-					<option value="noneSelect">None</option>
+					<option value="none">None</option>
 				</select>
 			</div>
 		)
