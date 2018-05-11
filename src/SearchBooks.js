@@ -1,35 +1,41 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import escapeRegExp from 'escape-string-regexp'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends Component {
 
-	state = {
-		query: '',
-		reBooks: []
+	static PropTypes = {
+		myBooks: PropTypes.array.isRequired,
+		onChangeShelf: PropTypes.func.isRequired
 	}
 
-	updateQuery = (query) => {
-		this.setState({ query: query.trim() })
-		 console.log('query: ')
-		 console.log(query)
+	state = {
+		query: '',
+		results: []
+	}
+
+	updateResults = (results) => {
+		results.error || results === false
+		? this.setState(() => ({ results: [] }))
+		: this.setState(() => ({ results: results }))
+	}
+
+	updateQuery = (input) => {
+		this.setState(() => ({
+			query: input.trim()
+		}))
+		input
+			? BooksAPI.search(input.trim()).then((results) => {this.updateResults(results)})
+			: this.updateResults(false) // clear results when query is empty
 	}
 
   render() {
-  	const { reBooks } = this.state
-  	const { query } = this.state
-
-  	if (query) {
-  		BooksAPI.search(query).then((reBooks) => {
-      	this.setState({ reBooks })
-    	})
-  	} else {
-  		console.log('clear books')
-
-  	}
-
+  	const { results, query } = this.state
+  	// will use later:
+  	// const { onChangeShelf } = this.props
   	return(
-
 		  <div className="search-books">
 		    <div className="search-books-bar">
 		      <Link className="close-search" to='/'>Close</Link>
@@ -41,12 +47,15 @@ class SearchBooks extends Component {
         			value={query}
         			onChange={(event) => this.updateQuery(event.target.value)}
 		        />
+		        		  {JSON.stringify(query)}
 		      </div>
 		    </div>
 		    <div className="search-books-results">
-		      <ol className="books-grid">
 
-            { reBooks.map(( book ) => (
+
+
+		      <ol className="books-grid">
+            { results.map(( book ) => (
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
@@ -69,8 +78,11 @@ class SearchBooks extends Component {
                 </div>
               </li>
             ))}
-
           </ol>
+
+
+
+
 		    </div>
 		  </div>
 		)
