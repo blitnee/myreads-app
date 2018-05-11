@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
-// import escapeRegExp from 'escape-string-regexp'
 import PropTypes from 'prop-types'
 import Books from './Books'
+import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends Component {
-  static propTypes = {
-    // myBooks: PropTypes.array.isRequired,
-    // onChangeShelf: PropTypes.func.isRequired
+  static PropTypes = {
+    myBooks: PropTypes.array.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
   }
 
   shelfChange = ( book, shelf ) => {
@@ -16,8 +15,8 @@ class SearchBooks extends Component {
   }
 
   state = {
-    results: [],
     query: '',
+    results: [],
   }
 
   getShelf = (array) => {
@@ -34,27 +33,43 @@ class SearchBooks extends Component {
         }
       })
     })
+    // THIS SHOULD PROBABLY GO IN BOOK MENU AND SET THE STATE
   }
 
-  updateQuery = (query) => {
-    this.setState({ query: query.trim() })
-    this.showResults(query)
-    console.log('query: ')
-    console.log(query)
+  updateResults = (results) => {
+    results.error || results === false
+    ? this.setState(() => ({ results: [] }))
+    : this.setState(() => ({ results: results }))
   }
 
-  showResults = (query) => {
-    // const input = new RegExp(escapeRegExp(query), 'i')
-    if (query) {
-      BooksAPI.search(query).then((results) => {
-        this.setState({ results })
-        this.getShelf(this.state.results) // REMOVE DUPLICATED CODE
-      })
-    } else if (query == '') {
-        this.setState({results: []})
-        this.getShelf(this.state.results) // REMOVE DUPLICATED CODE
-    }
+  updateQuery = (input) => {
+    this.setState(() => ({
+      query: input.trim()
+    }))
+    input
+      ? BooksAPI.search(input.trim()).then((results) => {this.updateResults(results)})
+      : this.updateResults(false) // clear results when query is empty
   }
+
+  // updateQuery = (query) => {
+  //   this.setState({ query: query.trim() })
+  //   this.showResults(query)
+  //   console.log('query: ')
+  //   console.log(query)
+  // }
+
+  // showResults = (query) => {
+  //   // const input = new RegExp(escapeRegExp(query), 'i')
+  //   if (query) {
+  //     BooksAPI.search(query).then((results) => {
+  //       this.setState({ results })
+  //       this.getShelf(this.state.results) // REMOVE DUPLICATED CODE
+  //     })
+  //   } else if (query == '') {
+  //       this.setState({results: []})
+  //       this.getShelf(this.state.results) // REMOVE DUPLICATED CODE
+  //   }
+  // }
 
   render() {
 
@@ -72,6 +87,7 @@ class SearchBooks extends Component {
               value={query}
               onChange={(event) => this.updateQuery(event.target.value)}
             />
+            {JSON.stringify(query)}
           </div>
         </div>
         <div className="search-books-results">
