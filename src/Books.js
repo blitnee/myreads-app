@@ -4,18 +4,18 @@ import BookMenu from './BookMenu'
 
 class Books extends Component {
 
-  static PropTypes = {
-    books: PropTypes.object.isRequired,
-    onChangeShelf: PropTypes.func.isRequired
-  }
+	static PropTypes = {
+		books: PropTypes.object.isRequired,
+		onChangeShelf: PropTypes.func.isRequired
+	}
 
-  state = {
-  	shelfBooks: []
-  }
+	state = {
+		shelfBooks: []
+	}
 
-  newValue = ( book, shelf ) => {
-  	this.props.onChangeShelf(book, shelf)
-  }
+	newValue = ( book, shelf ) => {
+		this.props.onChangeShelf(book, shelf)
+	}
 
 	render() {
 		const { books } = this.props
@@ -27,8 +27,8 @@ class Books extends Component {
 							<div className="book-top">
 								<div className="book-cover" style={{
 									// @todo: Remove styles
-							    width: 128, height: 193,
-							    backgroundImage: `url(${book.imageLinks.thumbnail})`
+									width: 128, height: 193,
+									backgroundImage: `url(${book.imageLinks.thumbnail})`
 									}}/>
 								<BookMenu
 									book={ book }
