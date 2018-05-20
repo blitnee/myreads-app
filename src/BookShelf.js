@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Books from './Books'
+import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 
 class BookShelf extends Component {
