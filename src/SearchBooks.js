@@ -12,8 +12,8 @@ class SearchBooks extends Component {
 
 	updateResults = (results) => {
 		results.error || results === false
-		? this.setState(() => ({ results: [] }))
-		: this.setState(() => ({ results: results }))
+			? this.setState(() => ({ results: [] }))
+			: this.setState(() => ({ results: results }))
 	}
 
 	updateQuery = (input) => {
@@ -21,14 +21,16 @@ class SearchBooks extends Component {
 			query: input.trim()
 		}))
 		input
-			? BooksAPI.search(input.trim()).then((results) => {this.updateResults(results)})
-			: this.updateResults(false) // clear results when query is empty
+			? BooksAPI.search(input.trim()).then((results) => { this.updateResults(results) })
+			: this.updateResults(false)
+	}
+
+	changeShelf = (book, shelf) => {
+		BooksAPI.update(book, shelf)
 	}
 
 	render() {
-
 		const { query, results } = this.state
-
 		return(
 			<div className="search-books">
 				<div className="search-books-bar">
@@ -41,7 +43,6 @@ class SearchBooks extends Component {
 							value={ query }
 							onChange={(event) => this.updateQuery(event.target.value)}
 						/>
-						{JSON.stringify(query)}
 					</div>
 				</div>
 				<div className="search-books-results">
