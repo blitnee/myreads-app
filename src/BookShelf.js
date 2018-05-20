@@ -16,10 +16,13 @@ class BookShelf extends Component {
 
 	updateBooks() {
 		BooksAPI.getAll().then((myBooks) => {
+			this.setState({
+				shelfBooks: myBooks.filter((book) => book.shelf === this.props.id)
+			})
 		})
 	}
 
-	changeShelf(book, shelf) {
+	changeShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)
 		this.updateBooks()
 	}
@@ -33,7 +36,7 @@ class BookShelf extends Component {
 	}
 
 	render() {
-		const { title, id } = this.props
+		const { title } = this.props
 		const { shelfBooks } = this.state
 		return (
 			<div className="bookshelf">
