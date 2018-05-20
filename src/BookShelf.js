@@ -19,20 +19,17 @@ class BookShelf extends Component {
 		})
 	}
 
-	// Update books before component render
-	componentDidMount() {
-		this.updateBooks()
-	}
-
-	// Update BooksAPI with change and update component state/view
 	changeShelf(book, shelf) {
 		BooksAPI.update(book, shelf)
 		this.updateBooks()
 	}
 
-	// Get books for books component
-	getBooks = (id) => {
-		return this.state.myBooks.filter((book) => book.shelf === id)
+	componentDidMount() {
+		this.updateBooks()
+	}
+
+	componentDidUpdate() {
+		this.updateBooks()
 	}
 
 	render() {
