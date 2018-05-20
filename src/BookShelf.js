@@ -11,13 +11,11 @@ class BookShelf extends Component {
 	}
 
 	state = {
-		myBooks: [],
+		shelfBooks: [],
 	}
 
-	// Update myBooks State (and view!)
 	updateBooks() {
 		BooksAPI.getAll().then((myBooks) => {
-			this.setState({myBooks})
 		})
 	}
 
@@ -39,16 +37,21 @@ class BookShelf extends Component {
 
 	render() {
 		const { title, id } = this.props
+		const { shelfBooks } = this.state
 		return (
-			<div key={ id } className="bookshelf">
+			<div className="bookshelf">
 				<h2 className="bookshelf-title">{ title }</h2>
 				<div className="bookshelf-books">
-					<Books
-						books={this.getBooks(id)}
-						onChangeShelf={(book, shelf) => {
-							this.changeShelf(book, shelf)
-						}}
-						/>
+					<ol className="books-grid">
+						{ shelfBooks.map((book) => (
+							<Book
+								book={ book }
+								key={ book.id }
+								onChangeShelf={(book, shelf) => {
+									this.changeShelf(book, shelf) }}
+								/>
+						))}
+					</ol>
 				</div>
 			</div>
 		)

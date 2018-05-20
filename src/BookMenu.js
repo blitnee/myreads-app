@@ -10,9 +10,7 @@ class BookMenu extends Component {
 
 	handleSubmit = (book , e) => {
 		e.preventDefault();
-		if(this.props.onNewValue){
-			this.props.onNewValue(book , e.target.value)
-		}
+		this.props.onNewValue(book, e.target.value)
 	}
 
 	render() {
