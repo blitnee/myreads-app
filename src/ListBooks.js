@@ -14,7 +14,7 @@ function ListBooks () {
 				<BookShelf id="read" title="Read" />
 			</div>
 			<div className="open-search">
-				<Link to='/search'>Add Books</Link>
+				<Link to='/search' className="add-button">Add Books</Link>
 			</div>
 		</div>
 	)
