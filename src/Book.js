@@ -16,6 +16,18 @@ class Book extends Component {
 			return ''
 		}
 	}
+
+	getAuthors = () => {
+		if (this.props.book.authors) {
+			return this.props.book.authors.join(', ')
+		} else {
+			return ''
+		}
+	}
+
+	componentDidMount() {
+		this.getThumbnail()
+		this.getAuthors()
 	}
 
 	render() {
