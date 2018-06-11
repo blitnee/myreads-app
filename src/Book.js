@@ -9,6 +9,15 @@ class Book extends Component {
 		onChangeShelf: PropTypes.func.isRequired,
 	}
 
+	getThumbnail = () => {
+		if (this.props.book.imageLinks) {
+			return this.props.book.imageLinks.thumbnail
+		} else {
+			return ''
+		}
+	}
+	}
+
 	render() {
 		const { book, onChangeShelf } = this.props
 		return(

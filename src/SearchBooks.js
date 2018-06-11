@@ -10,23 +10,11 @@ class SearchBooks extends Component {
 		results: [],
 	}
 
-	updateResults = (results) => {
-		results.error || results === false
-			? this.setState(() => ({ results: [] }))
-			: this.setState(() => ({ results: results }))
-	}
-
 	updateQuery = (input) => {
 		this.setState(() => ({
-			query: input.trim()
 		}))
-		input
-			? BooksAPI.search(input.trim()).then((results) => { this.updateResults(results) })
-			: this.updateResults(false)
 	}
 
-	changeShelf = (book, shelf) => {
-		BooksAPI.update(book, shelf)
 	}
 
 	render() {
@@ -51,8 +39,6 @@ class SearchBooks extends Component {
 							<Book
 								book={ book }
 								key={ book.id }
-								onChangeShelf={(book, shelf) => {
-									this.changeShelf(book, shelf) }}
 								/>
 						))}
 					</ol>
