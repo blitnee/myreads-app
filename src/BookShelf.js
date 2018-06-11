@@ -7,7 +7,7 @@ class BookShelf extends Component {
 
 	static PropTypes = {
 		title: PropTypes.string.isRequired,
-		id: PropTypes.string.isRequired,
+		shelfId: PropTypes.string.isRequired,
 	}
 
 	state = {
@@ -17,7 +17,7 @@ class BookShelf extends Component {
 	updateBooks() {
 		BooksAPI.getAll().then((myBooks) => {
 			this.setState({
-				shelfBooks: myBooks.filter((book) => book.shelf === this.props.id)
+				shelfBooks: myBooks.filter((book) => book.shelf === this.props.shelfId)
 			})
 		})
 	}

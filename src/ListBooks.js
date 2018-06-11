@@ -9,9 +9,9 @@ function ListBooks () {
 				<h1>MyReads</h1>
 			</div>
 			<div className="list-books-content">
-				<BookShelf id="currentlyReading" title="Currently Reading" />
-				<BookShelf id="wantToRead" title="Want To Read" />
-				<BookShelf id="read" title="Read" />
+				<BookShelf shelfId="currentlyReading" title="Currently Reading" />
+				<BookShelf shelfId="wantToRead" title="Want To Read" />
+				<BookShelf shelfId="read" title="Read" />
 			</div>
 			<div className="open-search">
 				<Link to='/search' className="add-button">Add Books</Link>
