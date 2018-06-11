@@ -6,7 +6,6 @@ class Book extends Component {
 
 	static PropTypes = {
 		book: PropTypes.object.isRequired,
-		onChangeShelf: PropTypes.func.isRequired,
 	}
 
 	getThumbnail = () => {
@@ -31,7 +30,7 @@ class Book extends Component {
 	}
 
 	render() {
-		const { book, onChangeShelf } = this.props
+		const { book } = this.props
 		return(
 			<li>
 				<div className="book">

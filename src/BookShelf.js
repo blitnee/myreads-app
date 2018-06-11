@@ -22,11 +22,6 @@ class BookShelf extends Component {
 		})
 	}
 
-	changeShelf = (book, shelf) => {
-		BooksAPI.update(book, shelf)
-		this.updateBooks()
-	}
-
 	componentDidMount() {
 		this.updateBooks()
 	}
@@ -47,8 +42,6 @@ class BookShelf extends Component {
 							<Book
 								book={ book }
 								key={ book.id }
-								onChangeShelf={(book, shelf) => {
-									this.changeShelf(book, shelf) }}
 								/>
 						))}
 					</ol>
