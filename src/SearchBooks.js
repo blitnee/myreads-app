@@ -12,9 +12,18 @@ class SearchBooks extends Component {
 
 	updateQuery = (input) => {
 		this.setState(() => ({
+			query: input
 		}))
 	}
 
+	componentDidUpdate() {
+		this.state.query.length === 0
+			? this.setState(() => ({ results: [] }))
+			: BooksAPI.search(this.state.query.trim()).then((results) => {
+					results.error === 'empty query'
+						? this.setState(() => ({ results: [] }))
+						: this.setState(() => ({ results: results }))
+			})
 	}
 
 	render() {
