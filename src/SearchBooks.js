@@ -8,22 +8,36 @@ class SearchBooks extends Component {
 	state = {
 		query: '',
 		results: [],
+		myBooks: [],
 	}
 
-	updateQuery = (input) => {
-		this.setState(() => ({
-			query: input
-		}))
+	updateQuery = (query) => {
+		this.setState({ query })
+		this.getResults(query.trim())
 	}
 
-	componentDidUpdate() {
-		this.state.query.length === 0
-			? this.setState(() => ({ results: [] }))
-			: BooksAPI.search(this.state.query.trim()).then((results) => {
-					results.error === 'empty query'
-						? this.setState(() => ({ results: [] }))
-						: this.setState(() => ({ results: results }))
-			})
+	getResults = (query) => {
+		!query.length
+			? this.setState({ results: [] })
+			:	BooksAPI.search(query).then((books) => {
+		      if(!!books){
+		        if(books.length>0){
+		          const results = books.map((book) => {
+		            const existingBook = this.state.myBooks.find((b) => b.id === book.id)
+		            book.shelf = !!existingBook ? existingBook.shelf : 'none'
+		            console.log(book.shelf)
+		            return book
+		          })
+		          this.setState({ results })
+		        }
+		      }
+		    })
+	}
+
+	componentDidMount() {
+		BooksAPI.getAll().then((myBooks) => {
+			this.setState({ myBooks })
+		})
 	}
 
 	render() {
