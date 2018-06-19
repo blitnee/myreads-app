@@ -20,8 +20,8 @@ function ListBooks () {
 				<h1>MyReads</h1>
 			</div>
 			<div className="list-books-content">
-				{bookShelves.map(bookshelf => {
-					return <BookShelf shelfId={bookshelf.shelfId} title={bookshelf.title} />
+				{bookShelves.map((bookshelf, index) => {
+					return <BookShelf key={index} shelfId={bookshelf.shelfId} title={bookshelf.title} />
 				})}
 			</div>
 			<div className="open-search">
