@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import BookMenu from './BookMenu'
+import * as BooksAPI from './BooksAPI'
 
 class Book extends Component {
 
 	static PropTypes = {
 		book: PropTypes.object.isRequired,
+	}
+
+	state = {
+		shelf: ''
+	}
+
+	changeShelf = (book, shelf) => {
+		BooksAPI.update(book, shelf).then((myBooks) => {
+			this.setState({ shelf })
+		})
 	}
 
 	getThumbnail = () => {
@@ -27,6 +38,9 @@ class Book extends Component {
 	componentDidMount() {
 		this.getThumbnail()
 		this.getAuthors()
+		BooksAPI.get(this.props.book.id).then((book) => {
+			this.setState({ shelf: book.shelf })
+		})
 	}
 
 	render() {
@@ -38,7 +52,12 @@ class Book extends Component {
 						<div className="book-cover" style={{
 							width: 128, height: 193, backgroundImage: `url(${this.getThumbnail()})`
 							}}/>
-						<BookMenu book={ book } />
+						<BookMenu
+							book={ book }
+							onChangeShelf={(book, shelf) => {
+                this.changeShelf(book, shelf)
+              }}
+						/>
 					</div>
 					<div className="book-title">{book.title}</div>
 					<div className="book-authors">{this.getAuthors()}</div>
