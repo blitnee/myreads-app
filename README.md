@@ -1,6 +1,12 @@
 # MyReads Project
 
-This application allows users to select and categorize books they have read, are currently reading, or want to read. The project emphasizes key features of React, and utilizes a provided API server and library to persist information as you interact with the application.
+This application allows users to select and categorize books they have read, are currently reading, or want to read. The project emphasizes key features of React. This application utilizes a provided API server and library to persist information as you interact with the application. The application has been broken down into 6 distinct components:
+* `App` - Holds `SearchBooks` and `ListBooks` views
+* `SearchBooks` - Displays a list of queried results.
+* `ListBooks` - Displays a categorized list of a user's books.
+* `BookShelf` - Holds books that belong to the corresponding shelf.
+* `Book` - Displays a list of books of the same shelf.
+* `BookMenu` - Alters the book shelf state.
 
 
 ## Instructions
