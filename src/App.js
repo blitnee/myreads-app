@@ -28,6 +28,7 @@ class App extends Component {
 	}
 
 	// @todo: Need to update shelf on change on change, not just API (update MyBooks?)
+	// @todo: Separate out shelf check and results gen?
 	getResults = (query) => {
 		!query.length
 			? this.setState({ results: [] })

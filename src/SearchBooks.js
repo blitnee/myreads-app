@@ -33,8 +33,6 @@ class SearchBooks extends Component {
 				<div className="search-books-results">
 					<ol className="books-grid">
 						{ results.map((book) => (
-							// This array should be passed back to this component every time a book's shelf
-							// is updated, updating the book's shelf values for every book within the search page.
 							<Book
 								book={ book }
 								key={ book.id }
