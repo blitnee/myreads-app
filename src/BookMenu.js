@@ -11,9 +11,6 @@ class BookMenu extends Component {
 	handleSubmit = (book, e) => {
 		e.preventDefault()
 		this.props.onChangeShelf(book, e.target.value)
-		if(location.pathname !== '/') {
-			location.pathname = '/'
-		}
 	}
 
 	render() {
