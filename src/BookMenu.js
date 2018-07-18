@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 class BookMenu extends Component {
 
 	static PropTypes = {
-		book: PropTypes.object.isRequired,
+		book: PropTypes.string.isRequired,
 		onChangeShelf: PropTypes.func.isRequired
 	}
 
