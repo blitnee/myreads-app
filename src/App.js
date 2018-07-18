@@ -9,6 +9,8 @@ class App extends Component {
 
 	state = {
 		myBooks: [],
+		results: [],
+		query: ''
 	}
 
 	componentDidMount () {
@@ -17,16 +19,39 @@ class App extends Component {
 		})
 	}
 
-	// @todo: Utilize Context API to prevent prop drilling
+	// @todo: Utilize Context API to prevent prop drilling to BookMenu
 	changeShelf(book, shelf) {
 		console.log(book, shelf)
-		BooksAPI.update(book, shelf).then((myBooks) => {
-			console.log(myBooks) // do something with this, probably?
+		BooksAPI.update(book, shelf).then((shelfCollection) => {
+			this.setState({ shelfCollection }); // do something with this, probably?
 		})
 	}
 
+	// @todo: Need to update shelf on change on change, not just API (update MyBooks?)
+	getResults = (query) => {
+		!query.length
+			? this.setState({ results: [] })
+			:	BooksAPI.search(query, 30).then((books) => {
+		      if(!!books){
+		        if(books.length > 0){
+		          const results = books.map((book) => {
+		            const existingBook = this.state.myBooks.find((b) => b.id === book.id)
+		            book.shelf = !!existingBook ? existingBook.shelf : 'none'
+		            return book
+		          })
+		          this.setState({ results })
+		        }
+		      }
+		    })
+	}
+
+	updateQuery = (query) => {
+		this.setState({ query })
+		this.getResults(query.trim())
+	}
+
 	render () {
-		const { myBooks } = this.state
+		const { myBooks, results, query } = this.state
 		return (
 			<div className="app">
 					<Route exact path='/' render={() => (
@@ -37,7 +62,16 @@ class App extends Component {
               	}} />
 					)}/>
 					<Route path='/search' render={() => (
-						<SearchBooks myBooks={ myBooks }/>
+						<SearchBooks
+							myBooks={ myBooks }
+							results={ results }
+							query={ query }
+							onUpdateQuery={(query) => {
+								this.updateQuery(query)
+							}}
+							onChangeShelf={(book, shelf) => {
+                this.changeShelf(book, shelf)
+              }}/>
 					)}/>
 			</div>
 		)

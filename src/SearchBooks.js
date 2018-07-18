@@ -7,39 +7,15 @@ import * as BooksAPI from './BooksAPI'
 class SearchBooks extends Component {
 
 	static PropTypes = {
-		myBooks: PropTypes.array.isRequired
-	}
-
-	// @todo: Move all state and actions to App.js
-	state = {
-		query: '',
-		results: [],
-	}
-
-	updateQuery = (query) => {
-		this.setState({ query })
-		this.getResults(query.trim())
-	}
-
-	getResults = (query) => {
-		!query.length
-			? this.setState({ results: [] })
-			:	BooksAPI.search(query, 30).then((books) => {
-		      if(!!books){
-		        if(books.length > 0){
-		          const results = books.map((book) => {
-		            const existingBook = this.props.myBooks.find((b) => b.id === book.id)
-		            book.shelf = !!existingBook ? existingBook.shelf : 'none'
-		            return book
-		          })
-		          this.setState({ results })
-		        }
-		      }
-		    })
+		myBooks: PropTypes.array.isRequired,
+		onChangeShelf: PropTypes.func.isRequired,
+		onUpdateQuery: PropTypes.func.isRequired,
+		results: PropTypes.array.isRequired,
+		query: PropTypes.string.isRequired
 	}
 
 	render() {
-		const { query, results } = this.state
+		const { query, results } = this.props
 		return(
 			<div className="search-books">
 				<div className="search-books-bar">
@@ -50,7 +26,7 @@ class SearchBooks extends Component {
 							type="text"
 							placeholder="Search by title or author"
 							value={ query }
-							onChange={(event) => this.updateQuery(event.target.value)}
+							onChange={(event) => this.props.onUpdateQuery(event.target.value)}
 						/>
 					</div>
 				</div>
@@ -62,6 +38,9 @@ class SearchBooks extends Component {
 							<Book
 								book={ book }
 								key={ book.id }
+								onChangeShelf={(book, shelf) => {
+                this.props.onChangeShelf(book, shelf)
+              }}
 								/>
 						))}
 					</ol>
