@@ -13,6 +13,12 @@ class App extends Component {
 		query: ''
 	}
 
+	componentDidUpdate() {
+		BooksAPI.getAll().then((myBooks) => {
+			this.setState({ myBooks })
+		})
+	}
+
 	componentDidMount () {
 		BooksAPI.getAll().then((myBooks) => {
 			this.setState({ myBooks })
