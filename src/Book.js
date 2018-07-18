@@ -7,16 +7,7 @@ class Book extends Component {
 
 	static PropTypes = {
 		book: PropTypes.object.isRequired,
-	}
-
-	state = {
-		shelf: ''
-	}
-
-	changeShelf = (book, shelf) => {
-		BooksAPI.update(book, shelf).then((myBooks) => {
-			this.setState({ shelf })
-		})
+		onChangeShelf: PropTypes.func.isRequired
 	}
 
 	getThumbnail = () => {
@@ -38,9 +29,6 @@ class Book extends Component {
 	componentDidMount() {
 		this.getThumbnail()
 		this.getAuthors()
-		BooksAPI.get(this.props.book.id).then((book) => {
-			this.setState({ shelf: book.shelf })
-		})
 	}
 
 	render() {
@@ -54,7 +42,7 @@ class Book extends Component {
 						<BookMenu
 							book={ book }
 							onChangeShelf={(book, shelf) => {
-                this.changeShelf(book, shelf)
+                this.props.onChangeShelf(book, shelf)
               }}
 						/>
 					</div>
