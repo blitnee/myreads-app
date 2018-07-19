@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import BookMenu from './BookMenu'
-import * as BooksAPI from './BooksAPI'
 
 class Book extends Component {
 
