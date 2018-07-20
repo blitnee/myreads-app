@@ -8,16 +8,24 @@ class BookMenu extends Component {
 		onChangeShelf: PropTypes.func.isRequired
 	}
 
+	state = {
+		shelf: this.props.book.shelf
+	}
+
 	handleSubmit = (book, e) => {
 		e.preventDefault()
 		this.props.onChangeShelf(book, e.target.value)
+		this.setState({
+			shelf: e.target.value
+		})
 	}
 
 	render() {
 		const { book } = this.props
+		const { shelf } = this.state
 		return(
 			<div className="book-shelf-changer">
-				<select value={ book.shelf } onChange={ (e) => this.handleSubmit(book, e)}>
+				<select value={ shelf } onChange={ (e) => this.handleSubmit(book, e)}>
 					<option value="noneSelect" disabled>Move to...</option>
 					<option value="currentlyReading">Currently Reading</option>
 					<option value="wantToRead">Want to Read</option>
