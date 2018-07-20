@@ -27,14 +27,11 @@ class App extends Component {
 
 	// @todo: Utilize Context API to prevent prop drilling to BookMenu
 	changeShelf(book, shelf) {
-		console.log(book, shelf)
 		BooksAPI.update(book, shelf).then((shelfCollection) => {
 			this.setState({ shelfCollection }); // do something with this, probably?
 		})
 	}
 
-	// @todo: Need to update shelf on change on change, not just API (update MyBooks?)
-	// @todo: Separate out shelf check and results gen?
 	getResults = (query) => {
 		!query.length
 			? this.setState({ results: [] })

@@ -10,7 +10,9 @@ body, .app {
   background: white;
 }
 
-/* main page */
+/**
+ * Main page
+ */
 
 .list-books-title {
   padding: 10px 0;
@@ -64,7 +66,9 @@ body, .app {
   font-size: 0;
 }
 
-/* search page */
+/**
+ * Search Page
+ */
 
 .search-books-bar {
   position: fixed;
@@ -105,7 +109,9 @@ body, .app {
   padding: 80px 10px 20px;
 }
 
-/* books grid */
+/**
+ * Books Grid
+ */
 
 .books-grid {
   list-style-type: none;
@@ -163,7 +169,9 @@ body, .app {
   cursor: pointer;
 }
 
-/* book cover */
+/**
+ * Book Cover
+ */
 
 .book-cover {
   width: 128px;
