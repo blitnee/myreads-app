@@ -4,7 +4,7 @@ html, body, .root {
 body {
   color: #3f4044;
   line-height: 1.5;
-  font-family: monospace;
+  font-family: 'Roboto', sans-serif;
 }
 body, .app {
   background: white;
@@ -19,8 +19,7 @@ body, .app {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16);
 }
 .list-books-title h1 {
-  font-weight: bold;
-  color: #d64eff;
+  font-family: 'Shrikhand', cursive;
   margin: 0;
 }
 

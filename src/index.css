@@ -7,9 +7,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: monospace;
-}
 /*.book-cover {
 	width: 128;
 	height: 193;
-}*/
+}*/	font-family: 'Roboto', sans-serif;
+}
