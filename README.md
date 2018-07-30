@@ -8,6 +8,8 @@ This application allows users to select and categorize books they have read, are
 * `Book` - Displays a book's cover, title, and authors
 * `BookMenu` - Displays a book's shelf state
 
+![Home display in MyReads app](https://raw.githubusercontent.com/blitnee/myreads-app/master/src/imgs/home-books.png)
+
 ## Instructions
 
 1. Download a copy of the project locally or clone the repository:
@@ -28,6 +30,8 @@ This application allows users to select and categorize books they have read, are
 
 ## Backend Server
 Udacity provided a backend server for this project. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods used to perform necessary operations on the backend.
+
+![Search results display in MyReads app](https://raw.githubusercontent.com/blitnee/myreads-app/master/src/imgs/search-results.png)
 
 ### Important Note :exclamation:
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms (see below). These terms are the _only_ terms that will work with the backend.
