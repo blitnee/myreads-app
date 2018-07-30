@@ -12,7 +12,7 @@ This application allows users to select and categorize books they have read, are
 
 1. Download a copy of the project locally or clone the repository:
 
-    `git clone https://github.com/computationalcore/myreads`
+    `git@github.com:blitnee/myreads-app.git`
 
 2. Install dependencies and run:
 
